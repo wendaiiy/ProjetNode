@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Bienvenue sur home.ejs</h1>
+
+    <% data.forEach(contact => { %>
+        <a href="/formulaire/<%= contact._id %>"> <%# ici on récupère directement le liens avec l'id du contact %>
+            <h2><%=contact.nom%></h2>
+        </a>
+        <h2><%=contact.prenom%></h2>
+        <p><%=contact.email%></p>
+        
+    <%    
+    });
+    %>
+    <!-- Attention avec EJS le multiligne ne fonctionne pas -->
+    <!-- Le = indique que l'on doit l'afficher  -->
+</body>
+</html>

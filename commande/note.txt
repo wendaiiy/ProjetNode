@@ -1,0 +1,90 @@
+commande nodeJS
+ NodeJs est une plateform de développement et d'exécutions d'application crée en 2009
+ Node.JS supporte le modèle asynchrone/événementielle elle permet de charger des élément de la page dans un ordre non défini lorsqu'une tache prend plus de temps à 	charger. Au contraitre la tache synchrone il va effectuer les taches dans l'ordre et ne va pas passer à la suivante tant qu'elle n'est pas terminé. 
+ Par défault NodeJs sera toujours asynchrone il faut le préciser si on veut le mettre en synchrone. 
+
+nmp node package manager c'est un outil de commande qui installe met à jour et désinstalle des paquets NodeJS dans notre application. 
+
+ npm help permet de voir toute les commandes fournis par npm
+
+        Lorsqu'on installe des dépendance il est possibile d'installer sur notre application mais aussi sur tout les projets : installation globale et un application local. Par 	default il le met en local, il va falloir préciser si on veut mettre le package en globale. 
+    -->
+
+npm init : pour créer un projet 
+npm install -g : Pour installer l'application en globale (exemple pour le travail en groupe). 
+npm update <package name> : pour mettre à jour sa librairie 
+[pour revenir sur une ancienne version on va directement dans la package.json et modifie directement la version]
+^4.18.2 pour les versions si il existe une version supérieure il fait la mise 
+~4.18.2 tant qu'on reste sur la version il fait la mie à jour il fait toujours en fonction du premier chiffre. 
+npm uninstall <nom du package>
+Création d'un serveur ne pas utiliser apache 
+
+	REQ : request demande de l'utilisateur.  
+	RES: réponse à l'utilisateur 
+Ctrl + z : mettre en pause 
+Ctrl + c : arreter le server
+ 
+cls pour remettre le teminal du powershell
+Lorsqu'on fait un backen on doit faire en sorte que nos élément soi aussi simple en récupération comme une API. 
+npm install express --save
+npm install -g express --save  : permet d'enregistrer le package en globale 
+
+les 4 fonctions utiliser par le client(request) sont les fonction get(), post()[envoyer une info], put()[put c'est mettre à jour], delete()
+
+pour ne pas a avoir recharger notre serveur utiliser on l'installe en npm install -g nodemon --> ensuite on fait sur le terminal nodemon nomdufichier.js c'est seulement pour le développement lorsqu'on le met en ligne on fait seulement avec node.  
+
+Pour NodeJs pour envoyer une donnée on utilisera toujours POST
+Avec la nodeJS on utilise pas de fichier html
+body-parser sert a récuperer les données qui sont envoyer (middleware c'est un intermédiaire) 
+Les middleware sont ultra important pour avoir accès à un serveur elle passe par la Req 
+La méthode de communication du client au serveur ce sont les 'name'
+
+MongoDB est une base de donnée NoSQL c'est la plus performante des base NoSQL pour l'installer il faut aller sur le terminal 
+npm install mongodb : (pas de besoin de faire en -g car c'est une installation en local)
+Apres l'installation il faut crée un compte sur https://account.mongodb.com/account/register
+le cluster c'est un espace dans la BDD dans lequel on va ranger l'entiereté de nos donnés. 
+identifiant pour accéder au serveur userName: wendykeclar mdp : iSxeIntKJmYxDgI1
+Sur le site il y a la possibilité de rentrer une adresse IP pour pouvoir accéder à la donnée 
+sur la page dans le cluster ne cliquer sur aucun logo car on va le remplir par nos données personnelles logo donne la possibilité de générer des données aléatoire. 
+Pour le connecter dans le serveur de notre projet ici app.js on ecrit const url = "mongodb+srv://wendykeclar:<motdepasse>@cluster0.nx2h0lv.mongodb.net/?retryWrites=true&w=majority" 
+Pour le connecter on va installer:  npm install mongoose --save 
+sur le tableau de bord le view monitoring permet d'avoir les précision sur les datas et les mouvements de la base de données
+
+L'architecture dominante des applications web et logiciel c'est le design pattern : ce sont des concepte de création d'application ici rappel ⚠️ le MVC modele view controller. 
+View c'est le client , le modèle c'est ce qui est stocker dans la base de données , le controller c'est le serveur qui est app.js gérer par express. 
+Par convention on va mettre tout les fichier models avec UNE MAJUSCULE Au début 
+le modèle sert a mettre toutes les règles qui seront enregistrés c'est pourquoi à l'intérieur du modèle on doit mettre un schéma avec son appelation et son type 
+le nom que l'on idique dans le fichier models 
+
+Pour créer un moteur de vue avec le mongoose on va utiliser un outil de templating ici EJS mais on travaillera plutot avec vue NodeJS
+Pour installer la librairie EJS : npm install ejs
+
+extension obligatoire sur vscode : ejs snappets et ejs language support(<- obligatoire)
+
+Note sur le site MongoDB pour accéder à notre base peu importe on va sur notre tableau de bords => Network Access => +add Ip adress => allow acces from anywhere 
+installation de la librairie permet de faire la méthode put() pour le crud : npm install method-override 
+
+Pour sécurisé notre projet on va installer le package de dotenv : npm install dotenv puis créer le fichier .env 
+Attention pour le stock des site internet de type : nom, prenom, age, sexe et donnée carte bancaire : il faut faire une demande a la CNIL pour le déploiement. Pour les mot de passe il faut obligatoirement avoir 12 caractère minimum et caractère spéciale une maj et une miniscule. Pour tous ce qui est information sur la sécurité il faut aller voir le site https://www.cnil.fr/fr
+il faudra faire un controle au niveau du client et aussi du middlewareet donc faire une double sécurité.
+
+Libriarie pour crypter les mot de passe dans la base de donnée avec NodeJs attention les version sont tres souvent mise à jour : npm install bcrypt
+Par défaut la method de bcrypt est asynchrone mais ça va poser problème alors il faudra préciser 'synchron'
+le hashsync : c'est le salt c'est le nombre de fois ou le mot de passe va etre chiffrer et c'est le développeur qui choisit le nombre de fois mais attention il va etre soit trop lent a déchifrer ou plus long.Ne fonctionne pas que sur les mots de passes
+
+ReactJS : framework client il y en 3 VueJS développer par quelqu'un qui aime Linux AngularJs développer par google et ReactJs dev par facebook. Vuejs a une méthode unique qui est un mélange des deux. Il est plus simple de passer par AngularJs a ReactJs que l'inverse. 
+React nativ est pour les applciation mobile et ReactJs c'est pour créer des applications web.  
+Premier avanatge de React il est econome, il permet de faire la charger seulement les modification apporter su le site et de ne pas recharger la page en entière. 
+Single page application. 
+
+Installation de React : il est possible de l'installer ou si vraiment besoin d'une fonctionnalité spécifique à react on peut importer le cdn de react sur notre fichier html. Ici on va l'installer et faire un dossier séparement spécialement pour react : rappel ouvrir son dossier avec un terminal powershell ou gitbash et ensuite faier npm init et: npm install --save react react-dom puis on fait npm install -g create-react-app
+
+dans le terminal du vscode mais sur un terminal gitbash et on ecrit create-react-app <nomdevotreapp> ( tout en miniscule) 
+
+puis on se déplace dans mon dossier app on fait cd <nomdeapp> et npm start et ça ouvre le navigateur par défaut 
+
+Documentation avec REACT / react.dev 
+
+pour yarn c'est lameme chose que npm mais c'est un fait par de facebook 
+
+[ le django est le framework pour python. Spring est l'outil de JAVA ]

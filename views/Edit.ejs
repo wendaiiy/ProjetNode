@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edition </title>
+</head>
+<body>
+    <%#= data %> <%# c'est avec le # que l'on fait les commentaire dans l'ejs%>
+    <h1>Utilisateur : </h1>
+  
+    <form action="/edit/<%= data._id%>?_method=PUT" method="post"> <%# le ? c'est une requete Jquery preil pour _id c'est pour qu'il correspond à  %>
+        <input type="hidden" name="_method" value="PUT"> <%# le input hidden est obligatoire pour pouvoir effectuer la modification c'est ce qu'on appel la méthode override %>
+
+        Nom: <input type="text" name="nom" value="<%= data.nom%>"><br>
+        Prénom:<input type="text" name="prenom" value="<%= data.prenom%>"><br>
+        Email: <input type="email" name="email" value="<%= data.email %>"><br>
+        Message: <textarea name="message" id="" cols="30" rows="10"><%= data.message %></textarea><br>
+        <input type="submit" value="MAJ">
+    
+    </form>
+
+    <form action="/delete/<%= data._id%>?_method=DELETE" method="post"> <%# Idem pour le delete ce sont des méthod non prise en charge par HMLT comme pour PHP alors il faut ajouter le input:hidden%>
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Supprimer le contact">
+    </form>
+</body>
+</html>

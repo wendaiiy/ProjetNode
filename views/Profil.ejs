@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+</head>
+<body>        
+    <% if(data.admin){%>
+        <h1>Hello Admin</h1>
+    <%   
+    }
+    else{%>
+        <h1>Hello User</h1>
+    <% 
+    }
+    %>  
+    <div class="container">
+        <p><%= data.username%></p> <%# ici on récupère le mot data car dans le app.js on a décidie de metre data : user pour recuprer les données si on avait mis user : user on aurait indiqué sur le fichier du profil.ejs user.username%>
+        <p><%= data.email%></p>
+        <p><%= data.admin %></p>        
+    </div>
+</body>
+</html>
