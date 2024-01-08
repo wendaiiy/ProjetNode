@@ -10,8 +10,8 @@ app.use(bodyParser.urlencoded({extended: false})); //ici le extend sert à creer
 // var path = require('path');
 require('dotenv').config(); // Pas besoin de faire un var parce que le env est une librairie liée a un fichier et comme c'est un fichier de configuration on met directement le require
 
-var cors = require('cors');
-app.use(cors({credentials:true, origin: 'http://localhost:3000'}));
+var cors = require('cors'); // le pobleme du token c'est qu'il est privé c'est pour cela que l'on récupère le package cors
+app.use(cors({credentials:true, origin: process.env.FRONT_END_URL}));
 
 const url = process.env.DATABASE_URL;
 
@@ -89,7 +89,7 @@ app.post('/submit-contact-data', function (req, res) {
     Data.save()
     .then(() =>{ // ici on met une fonction flécher et non pas anonyme parce que anonyme n'est pas pris en compte dans .then()
         console.log("Data saved !");
-        res.redirect("http://localhost:3000/contact"); // on le redirige vers l'index 
+        res.redirect(process.env.FRONT_END_URL +"/contact"); // on le redirige vers l'index 
     })
     .catch(err => console.log(err));
     // A chaque requete avec mongo on va ecrire une prommesse un .then() et .catch() pour vérfier que la requête a bien été effectuée 
@@ -108,7 +108,7 @@ app.put('/edit/:id', function(req, res){
     then(data =>{
         console.log("Donné mise à jour");
         console.log(data);
-        res.redirect("http://localhost:3000/contact/");
+        res.redirect(process.env.FRONT_END_URL +"/contact/");
     })        
     .catch(err => console.log(err));
 });
@@ -118,7 +118,7 @@ app.delete('/delete/:id', function(req, res){
     Contact.findOneAndDelete({_id : req.params.id})
     .then( data =>{
         console.log("Donné supprimée :");
-        res.redirect("http://localhost:3000/contact");
+        res.redirect(process.env.FRONT_END_URL +"/contact");
     })
     .catch(err => console.log(err));
 });
@@ -226,7 +226,7 @@ app.post('/api/register', function (req, res) {
             return res.status(404).send("Mot de passe trop court"); // pas besoin de faire un else parce que avec le return il va automatiquement arreter le code 
         }          
         console.log("User enregister!");
-        res.redirect("http://localhost:3000/login");        
+        res.redirect(process.env.FRONT_END_URL +"/login");        
        
     })
     .catch(err => console.log(err));
@@ -268,7 +268,7 @@ app.post('/api/login', function (req, res) {
 
 app.get('/logout' , (req, res) => {
     res.clearCookie("accessToken"); // ici on supprime le cookie a la déconnexion du client
-    res.redirect('http://localhost:3000/');
+    res.redirect(FRONT_END_URL);
 });
 
 // get jwt : mettre à disposition le JWT au client
@@ -277,37 +277,6 @@ app.get('/getJWT', (req, res) => {
     // res.json(req.cookies.accessToken)
     res.json(jwtDecode(req.cookies.accessToken)); // permet de récupérer les information de manièere lisible 
 })
-
-// ********************** UPLOAD IMAGE  ***********************//
-var IMAGE = require('./models/Image');
-
-app.get('/formulaireImage', (req, res) => {
-    res.render('formulaireImage')
-})
-
-const storage = multer.diskStorage({
-    destination : function(req, file, callback){
-        callback(null,"./public/image")
-    },
-    filename : function(req, file, callback){
-        callback(null, file.originalname)
-    }
-})
-
-const upload = multer({storage})
-
-app.post('/api/upload', upload.single('image'), (req, res) => {
-  const Image = new Image({
-    titre : req.body.titre,
-    image : req.body.image
-  })
-  Data.save()
-  .then(express.response=>{
-    console.log(response.data)
-  })
-})
-
-
 
 app.post('/api/register', function (req, res) {
     console.log(Object.keys(req.body.password).length); 
@@ -323,12 +292,40 @@ app.post('/api/register', function (req, res) {
             return res.status(404).send("Mot de passe trop court"); // pas besoin de faire un else parce que avec le return il va automatiquement arreter le code 
         }          
         console.log("User enregister!");
-        res.redirect("http://localhost:3000/login");        
+        res.redirect(process.env.FRONT_END_URL + "/login");        
        
     })
     .catch(err => console.log(err));
 })
 
+// ********************** UPLOAD IMAGE  ***********************//
+// var IMAGE = require('./models/Image');
+
+// app.get('/formulaireImage', (req, res) => {
+//     res.render('formulaireImage')
+// })
+
+// const storage = multer.diskStorage({
+//     destination : function(req, file, callback){
+//         callback(null,"./public/image")
+//     },
+//     filename : function(req, file, callback){
+//         callback(null, file.originalname)
+//     }
+// })
+
+// const upload = multer({storage})
+
+// app.post('/api/upload', upload.single('image'), (req, res) => {
+//   const Image = new Image({
+//     titre : req.body.titre,
+//     image : req.body.image
+//   })
+//   Data.save()
+//   .then(express.response=>{
+//     console.log(response.data)
+//   })
+// })
 
 
 var server = app.listen(5000, function(){
